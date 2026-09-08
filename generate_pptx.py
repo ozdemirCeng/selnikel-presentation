@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Selnikel Staj Sunumu — Executive Keynote Edition (Big Text, Zero Clutter, Real Photos)
+Selnikel Staj Sunumu — Executive Software Edition
 Ömer Faruk Özdemir | Kocaeli Üniversitesi Bilgisayar Mühendisliği 4. Sınıf
 Selnikel Enerji IT Departmanı
 """
 
-import os
 from pathlib import Path
 from pptx import Presentation
 from pptx.util import Inches, Pt
@@ -18,18 +17,18 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 IMG_DIR = SCRIPT_DIR / "public" / "images"
 OUTPUT = SCRIPT_DIR / "Selnikel_Staj_Sunumu_OmerFarukOzdemir.pptx"
 
-# Colors - Clean Executive Light Palette
+# Colors - Executive Clean Light Palette
 WHITE        = RGBColor(0xFF, 0xFF, 0xFF)
-BG_LIGHT     = RGBColor(0xFA, 0xFA, 0xFA)  # Ultra-clean soft white
-BORDER_CARD  = RGBColor(0xE2, 0xE8, 0xF0)  # Slate-200
+BG_LIGHT     = RGBColor(0xFA, 0xFA, 0xFA)
+BORDER_CARD  = RGBColor(0xE2, 0xE8, 0xF0)
 BORDER_LIGHT = RGBColor(0xED, 0xF2, 0xF7)
 
-TEXT_BLACK   = RGBColor(0x0F, 0x17, 0x2A)  # Slate-900 bold
+TEXT_BLACK   = RGBColor(0x0F, 0x17, 0x2A)  # Slate-900
 TEXT_DARK    = RGBColor(0x1E, 0x29, 0x3B)  # Slate-800
 TEXT_MUTED   = RGBColor(0x64, 0x74, 0x8B)  # Slate-500
 
 RED_BRAND    = RGBColor(0xE3, 0x06, 0x13)  # Selnikel Red
-RED_BG       = RGBColor(0xFE, 0xF2, 0xF2)  # Red-50
+RED_BG       = RGBColor(0xFE, 0xF2, 0xF2)
 RED_BDR      = RGBColor(0xFE, 0xCD, 0xCD)
 
 BLUE_BRAND   = RGBColor(0x02, 0x84, 0xC7)  # Sky-600
@@ -65,12 +64,11 @@ def set_bg(slide, col=BG_LIGHT):
     fill.fore_color.rgb = col
 
 def add_header(slide, kicker: str, title: str, subtitle: str = "", kcol=RED_BRAND):
-    """Clean, high-impact header. Logo strictly pinned to top-right corner."""
+    """Clean, high-impact header. Logo pinned strictly to top-right corner."""
     logo_p = IMG_DIR / "selnikel_logo.png"
     if logo_p.exists():
         slide.shapes.add_picture(str(logo_p), Inches(10.6), Inches(0.4), width=Inches(1.9))
 
-    # Kicker
     tb_k = slide.shapes.add_textbox(Inches(0.8), Inches(0.38), Inches(9.0), Inches(0.28))
     tf_k = tb_k.text_frame
     tf_k.margin_left = tf_k.margin_top = tf_k.margin_right = tf_k.margin_bottom = 0
@@ -82,7 +80,6 @@ def add_header(slide, kicker: str, title: str, subtitle: str = "", kcol=RED_BRAN
     r_k.font.color.rgb = kcol
     r_k.font.name = "Arial"
 
-    # Big Title
     tb_t = slide.shapes.add_textbox(Inches(0.8), Inches(0.68), Inches(9.5), Inches(0.45))
     tf_t = tb_t.text_frame
     tf_t.margin_left = tf_t.margin_top = tf_t.margin_right = tf_t.margin_bottom = 0
@@ -94,7 +91,6 @@ def add_header(slide, kicker: str, title: str, subtitle: str = "", kcol=RED_BRAN
     r_t.font.color.rgb = TEXT_BLACK
     r_t.font.name = "Arial"
 
-    # Subtitle (Optional)
     if subtitle:
         tb_s = slide.shapes.add_textbox(Inches(0.8), Inches(1.15), Inches(9.5), Inches(0.28))
         tf_s = tb_s.text_frame
@@ -147,24 +143,21 @@ def card(slide, left, top, width, height, bg=WHITE, bdr=BORDER_CARD):
     return c
 
 # ══════════════════════════════════════════════════════════════
-# SLIDE 1: KAPAK (Real Selnikel Industrial Facility Image)
+# SLIDE 1: KAPAK (Software Platform Showcase Mockup)
 # ══════════════════════════════════════════════════════════════
 s1 = prs.slides.add_slide(prs.slide_layouts[6])
 set_bg(s1, WHITE)
 
-# Selnikel Red accent line on left edge
 red_strip = s1.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(0), Inches(0), Inches(0.2), SLIDE_H)
 red_strip.fill.solid()
 red_strip.fill.fore_color.rgb = RED_BRAND
 red_strip.line.fill.background()
 
-# Logo
 logo_p = IMG_DIR / "selnikel_logo.png"
 if logo_p.exists():
     s1.shapes.add_picture(str(logo_p), Inches(0.8), Inches(0.55), width=Inches(2.8))
 
-# Big Bold Title
-tb_t1 = s1.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(6.8), Inches(1.7))
+tb_t1 = s1.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(6.6), Inches(1.7))
 tf_t1 = tb_t1.text_frame
 tf_t1.word_wrap = True
 tf_t1.margin_left = tf_t1.margin_top = tf_t1.margin_right = tf_t1.margin_bottom = 0
@@ -180,15 +173,15 @@ r1.font.name = "Arial"
 p2 = tf_t1.add_paragraph()
 p2.space_before = Pt(10)
 r2 = p2.add_run()
-r2.text = "Staj Dönemi Kapsamında Gerçekleştirilen 3 Proje"
+r2.text = "Bilgi Teknolojileri Departmanı • 3 Kurumsal Proje Sunumu"
 r2.font.size = Pt(15)
 r2.font.color.rgb = RED_BRAND
 r2.font.bold = True
 r2.font.name = "Arial"
 
 # Presenter Card
-card(s1, Inches(0.8), Inches(3.8), Inches(6.5), Inches(1.9), bg=BG_LIGHT, bdr=BORDER_CARD)
-tb_pres = s1.shapes.add_textbox(Inches(1.1), Inches(4.0), Inches(6.0), Inches(1.5))
+card(s1, Inches(0.8), Inches(3.8), Inches(6.4), Inches(1.9), bg=BG_LIGHT, bdr=BORDER_CARD)
+tb_pres = s1.shapes.add_textbox(Inches(1.1), Inches(4.0), Inches(5.9), Inches(1.5))
 tf_p = tb_pres.text_frame
 tf_p.word_wrap = True
 tf_p.margin_left = tf_p.margin_top = tf_p.margin_right = tf_p.margin_bottom = 0
@@ -211,39 +204,94 @@ rr3.text = "Selnikel Enerji A.Ş. IT Bölümü — Yazılım Stajyeri  •  Eyl�
 rr3.font.size = Pt(11)
 rr3.font.color.rgb = TEXT_MUTED
 
-# 3 Project Horizontal Pills
+# 3 Project Pills
 pills1 = [
     ("Proje 1: Kurumsal Web", BLUE_BG, BLUE_BRAND, BLUE_BDR),
     ("Proje 2: Selnikel AI", AMBER_BG, AMBER_BRAND, AMBER_BDR),
     ("Proje 3: Selnikel One", GREEN_BG, GREEN_BRAND, GREEN_BDR),
 ]
 for i, (ptxt, pbg, pcol, pbdr) in enumerate(pills1):
-    px = Inches(0.8 + i * 2.2)
+    px = Inches(0.8 + i * 2.18)
     py = Inches(5.95)
-    card(s1, px, py, Inches(2.1), Inches(0.48), bg=pbg, bdr=pbdr)
-    tbp = s1.shapes.add_textbox(px, py + Inches(0.1), Inches(2.1), Inches(0.28))
+    card(s1, px, py, Inches(2.08), Inches(0.48), bg=pbg, bdr=pbdr)
+    tbp = s1.shapes.add_textbox(px, py + Inches(0.1), Inches(2.08), Inches(0.28))
     tbp.text_frame.margin_left = tbp.text_frame.margin_right = 0
     p = tbp.text_frame.paragraphs[0]
     p.alignment = PP_ALIGN.CENTER
     r = p.add_run()
     r.text = ptxt
-    r.font.size = Pt(10)
+    r.font.size = Pt(9.5)
     r.font.bold = True
     r.font.color.rgb = pcol
 
-# REAL SELNIKEL INDUSTRIAL BOILER / PLANT IMAGE on Right
-real_img_p = IMG_DIR / "selnikel_kazan_real.jpg"
-if not real_img_p.exists():
-    real_img_p = IMG_DIR / "product_facility.png"
+# RIGHT SIDE: LIVE SOFTWARE APPLICATION SHOWCASE (No distorted building/boiler!)
+# Show the live Selnikel AI 3-column desktop platform in a sleek mockup card!
+live_ai_img = IMG_DIR / "selnikel_ai_desktop_live.png"
+if live_ai_img.exists():
+    card(s1, Inches(7.5), Inches(1.3), Inches(5.033), Inches(5.15), bg=WHITE, bdr=BORDER_CARD)
 
-if real_img_p.exists():
-    card(s1, Inches(7.6), Inches(1.2), Inches(4.9), Inches(5.15), bg=WHITE, bdr=BORDER_CARD)
-    s1.shapes.add_picture(str(real_img_p), Inches(7.7), Inches(1.3), width=Inches(4.7), height=Inches(4.95))
+    # Top mockup browser header
+    top_mock = s1.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(7.5), Inches(1.3), Inches(5.033), Inches(0.42))
+    top_mock.fill.solid()
+    top_mock.fill.fore_color.rgb = SLATE_BG
+    top_mock.line.color.rgb = BORDER_CARD
+    top_mock.line.width = Pt(1)
+
+    # 3 mock browser window dots
+    for dot_i, dot_col in enumerate([RGBColor(0xEF, 0x44, 0x44), RGBColor(0xF5, 0x9E, 0x0B), RGBColor(0x10, 0xB9, 0x81)]):
+        dot = s1.shapes.add_shape(MSO_SHAPE.OVAL, Inches(7.7 + dot_i * 0.22), Inches(1.44), Inches(0.12), Inches(0.12))
+        dot.fill.solid()
+        dot.fill.fore_color.rgb = dot_col
+        dot.line.fill.background()
+
+    tb_url = s1.shapes.add_textbox(Inches(8.5), Inches(1.38), Inches(3.8), Inches(0.26))
+    tb_url.text_frame.margin_left = tb_url.text_frame.margin_right = 0
+    purl = tb_url.text_frame.paragraphs[0]
+    rurl = purl.add_run()
+    rurl.text = "selnikel-ai.internal • Canlı Mühendislik Portalı"
+    rurl.font.size = Pt(9)
+    rurl.font.bold = True
+    rurl.font.color.rgb = TEXT_MUTED
+
+    # Perfectly proportional image (aspect 1600x950 = 1.684)
+    # Width 4.75 in -> Height 4.75 / 1.684 = 2.82 in
+    s1.shapes.add_picture(str(live_ai_img), Inches(7.64), Inches(1.85), width=Inches(4.75))
+
+    # Bottom summary callouts inside the card
+    tb_callouts = s1.shapes.add_textbox(Inches(7.7), Inches(4.8), Inches(4.6), Inches(1.5))
+    tf_call = tb_callouts.text_frame
+    tf_call.word_wrap = True
+    tf_call.margin_left = tf_call.margin_right = 0
+
+    pc1 = tf_call.paragraphs[0]
+    rc1 = pc1.add_run()
+    rc1.text = "✓ Geliştirilen 3 Entegre Kurumsal Yazılım:"
+    rc1.font.size = Pt(11)
+    rc1.font.bold = True
+    rc1.font.color.rgb = TEXT_BLACK
+
+    items_c = [
+        ("Web Platformu", "Next.js 16 • %97 Hız • 0 Güvenlik Riski", BLUE_BRAND),
+        ("Selnikel AI", "RAG + 5 Termodinamik Motor • Sıfır Halüsinasyon", AMBER_BRAND),
+        ("Selnikel One", "Servis GPS • Mobil PDKS • ₺2.8M Tasarruf", GREEN_BRAND),
+    ]
+    for iname, idesc, icol in items_c:
+        p = tf_call.add_paragraph()
+        p.space_before = Pt(4)
+        r_b = p.add_run()
+        r_b.text = iname + ": "
+        r_b.font.bold = True
+        r_b.font.size = Pt(9.5)
+        r_b.font.color.rgb = icol
+        r_d = p.add_run()
+        r_d.text = idesc
+        r_d.font.size = Pt(9.5)
+        r_d.font.color.rgb = TEXT_DARK
 
 add_footer(s1, 1)
 
 # ══════════════════════════════════════════════════════════════
-# SLIDE 2: BÜYÜK RESİM — 3 PROJE (Big, Bold, Zero Clutter)
+# SLIDE 2: BÜYÜK RESİM — 3 PROJE
 # ══════════════════════════════════════════════════════════════
 s2 = prs.slides.add_slide(prs.slide_layouts[6])
 set_bg(s2, BG_LIGHT)
@@ -282,7 +330,6 @@ for i, (kck, ptitle, psub, pcol, pbg, pbdr, pitems) in enumerate(projs2):
 
     card(s2, cx, cy, cw, ch, bg=WHITE, bdr=BORDER_CARD)
 
-    # Top Color Banner
     top_bar = s2.shapes.add_shape(MSO_SHAPE.RECTANGLE, cx, cy, cw, Inches(0.48))
     top_bar.fill.solid()
     top_bar.fill.fore_color.rgb = pbg
@@ -298,7 +345,6 @@ for i, (kck, ptitle, psub, pcol, pbg, pbdr, pitems) in enumerate(projs2):
     rk.font.bold = True
     rk.font.color.rgb = pcol
 
-    # Title
     tb_t = s2.shapes.add_textbox(cx + Inches(0.2), cy + Inches(0.6), cw - Inches(0.4), Inches(0.45))
     tb_t.text_frame.margin_left = tb_t.text_frame.margin_right = 0
     pt = tb_t.text_frame.paragraphs[0]
@@ -308,7 +354,6 @@ for i, (kck, ptitle, psub, pcol, pbg, pbdr, pitems) in enumerate(projs2):
     rt.font.bold = True
     rt.font.color.rgb = TEXT_BLACK
 
-    # Subtitle
     tb_s = s2.shapes.add_textbox(cx + Inches(0.2), cy + Inches(1.1), cw - Inches(0.4), Inches(0.35))
     tb_s.text_frame.margin_left = tb_s.text_frame.margin_right = 0
     ps = tb_s.text_frame.paragraphs[0]
@@ -318,7 +363,6 @@ for i, (kck, ptitle, psub, pcol, pbg, pbdr, pitems) in enumerate(projs2):
     rs.font.bold = True
     rs.font.color.rgb = pcol
 
-    # 4 Punchy Metric Blocks
     for j, (mhead, mdesc) in enumerate(pitems):
         by = cy + Inches(1.6 + j * 0.85)
         card(s2, cx + Inches(0.18), by, cw - Inches(0.36), Inches(0.75), bg=BG_LIGHT, bdr=BORDER_LIGHT)
@@ -351,7 +395,6 @@ set_bg(s3, BG_LIGHT)
 add_header(s3, "PROJE 1: KURUMSAL WEB PLATFORMU", "Neden WordPress'ten Next.js 16'ya Geçtik?",
            "Yönetim Kuruluna Somut Performans ve Güvenlik Kanıtları", kcol=BLUE_BRAND)
 
-# 4 Giant Metric Stat Cards
 big_metrics = [
     ("⚡ %97", "Daha Hızlı Yanıt", "2.500 ms ➔ 25 ms", "Tıklandığı an içerik ekranda", BLUE_BRAND, BLUE_BG, BLUE_BDR),
     ("📱 96 / 100", "Google Mobil Skoru", "Eski 28 ➔ Yeni 96", "Google'da doğrudan üst sıralara", GREEN_BRAND, GREEN_BG, GREEN_BDR),
@@ -407,7 +450,7 @@ for i, (val, title, comp, impact, col, bg, bdr) in enumerate(big_metrics):
     r_i.font.size = Pt(9.5)
     r_i.font.color.rgb = TEXT_MUTED
 
-# Lower Section: Direct Comparison (Old vs New)
+# Lower Section: Direct Comparison
 card(s3, Inches(0.8), Inches(4.05), Inches(5.7), Inches(2.65), bg=WHITE, bdr=BORDER_CARD)
 card(s3, Inches(1.0), Inches(4.2), Inches(2.6), Inches(0.35), bg=RED_BG, bdr=RED_BDR)
 tb_e = s3.shapes.add_textbox(Inches(1.0), Inches(4.24), Inches(2.6), Inches(0.28))
@@ -442,7 +485,6 @@ for j, pt in enumerate(old_points):
     r_t.font.size = Pt(11)
     r_t.font.color.rgb = TEXT_DARK
 
-# Right side: NEW ARCHITECTURE
 card(s3, Inches(6.8), Inches(4.05), Inches(5.7), Inches(2.65), bg=WHITE, bdr=BORDER_CARD)
 card(s3, Inches(7.0), Inches(4.2), Inches(2.8), Inches(0.35), bg=GREEN_BG, bdr=GREEN_BDR)
 tb_y = s3.shapes.add_textbox(Inches(7.0), Inches(4.24), Inches(2.8), Inches(0.28))
@@ -532,7 +574,7 @@ for i, (title, desc) in enumerate(probs4):
 add_footer(s4, 4)
 
 # ══════════════════════════════════════════════════════════════
-# SLIDE 5: PROJE 1 — KARŞILAŞTIRMA TABLOSU (Büyük & Net Yazılar)
+# SLIDE 5: PROJE 1 — KARŞILAŞTIRMA TABLOSU
 # ══════════════════════════════════════════════════════════════
 s5 = prs.slides.add_slide(prs.slide_layouts[6])
 set_bg(s5, BG_LIGHT)
@@ -595,14 +637,13 @@ for row_idx, rdata in enumerate(rows5):
 add_footer(s5, 5)
 
 # ══════════════════════════════════════════════════════════════
-# SLIDE 6: PROJE 1 — ÜRÜNLER & ÖZELLİKLER (Büyük Fotoğraflar)
+# SLIDE 6: PROJE 1 — ÜRÜNLER & ÖZELLİKLER
 # ══════════════════════════════════════════════════════════════
 s6 = prs.slides.add_slide(prs.slide_layouts[6])
 set_bg(s6, BG_LIGHT)
 add_header(s6, "PROJE 1: SIFIRDAN EKLENEN ÖZELLİKLER", "Dinamik Ürün Kataloğu ve Mühendislik Araçları",
            "Müşterinin doğru ürünü 15 saniyede bulmasını sağlayan yeni altyapı", kcol=BLUE_BRAND)
 
-# 4 Product Cards with BIGGER photos
 prods6 = [
     ("boiler.jpg", "Endüstriyel Kazanlar", "Buhar, kızgın su & atık ısı"),
     ("product_boiler_burner.png", "Endüstriyel Brülörler", "Monoblok & duoblok yüksek verim"),
@@ -641,7 +682,6 @@ for i, (pimg, pname, pdesc) in enumerate(prods6):
     r2.font.size = Pt(10.5)
     r2.font.color.rgb = TEXT_MUTED
 
-# 3 Bottom Punchline Cards
 feats6 = [
     ("📋 Mühendislik Talep Formları", "Kazan debisi, basınç, yakıt cinsi seçimiyle doğrudan teknik şartname satışa düşer. Teklif süresi %35 hızlandı."),
     ("🔍 Anlık Canlı Arama & CAD", "Sayfa yenilenmeden parça ve kılavuz listelenir; 2D/3D CAD çizimleri tek tıkla indirilir."),
@@ -740,7 +780,6 @@ for i, (val, title, comp, impact, col, bg, bdr) in enumerate(ai_metrics7):
     r_i.font.size = Pt(9.5)
     r_i.font.color.rgb = TEXT_MUTED
 
-# Lower Section: Why ChatGPT Fails & What We Solved
 card(s7, Inches(0.8), Inches(4.05), Inches(11.733), Inches(2.65), bg=WHITE, bdr=BORDER_CARD)
 
 tb_why = s7.shapes.add_textbox(Inches(1.1), Inches(4.2), Inches(11.133), Inches(2.3))
@@ -873,53 +912,71 @@ for i, (kck, stitle, scol, sbg, sbdr, sitems) in enumerate(steps8):
 add_footer(s8, 8)
 
 # ══════════════════════════════════════════════════════════════
-# SLIDE 9: PROJE 2 — ARAYÜZ & 5 MCP MOTORU
+# SLIDE 9: PROJE 2 — YENİ CANLI 3 SÜTUNLU AI ARAYÜZÜ (final_3column_desktop)
 # ══════════════════════════════════════════════════════════════
 s9 = prs.slides.add_slide(prs.slide_layouts[6])
 set_bg(s9, BG_LIGHT)
-add_header(s9, "PROJE 2: CANLI SİSTEM & MCP ARAÇLARI", "Selnikel AI Arayüzü ve 5 Termodinamik Hesap Motoru",
-           "RAG yapay zekanın hafızası ise, MCP onun mühendislik hesaplama yeteneğidir", kcol=AMBER_BRAND)
+add_header(s9, "PROJE 2: CANLI SİSTEM ARAYÜZÜ", "Yeni Selnikel AI: 3 Sütunlu Çalışma Alanı & MCP Motorları",
+           "Canlı doküman tarama, standart kütüphanesi ve termodinamik hesap araçları", kcol=AMBER_BRAND)
 
-# Left: AI Workspace Picture
-card(s9, Inches(0.8), Inches(1.55), Inches(6.5), Inches(5.15), bg=WHITE, bdr=BORDER_CARD)
+# Left: NEW High-Res 3-Column AI Workspace Interface
+card(s9, Inches(0.8), Inches(1.55), Inches(6.7), Inches(5.15), bg=WHITE, bdr=BORDER_CARD)
 
-tb_lt = s9.shapes.add_textbox(Inches(1.0), Inches(1.7), Inches(6.1), Inches(0.35))
+tb_lt = s9.shapes.add_textbox(Inches(1.0), Inches(1.7), Inches(6.3), Inches(0.35))
 tb_lt.text_frame.margin_left = tb_lt.text_frame.margin_right = 0
 plt = tb_lt.text_frame.paragraphs[0]
 rlt = plt.add_run()
-rlt.text = "Canlı Mühendislik Çalışma Alanı (Web Arayüzü)"
+rlt.text = "Canlı 3 Sütunlu Selnikel AI Mühendislik Arayüzü"
 rlt.font.size = Pt(13)
 rlt.font.bold = True
 rlt.font.color.rgb = TEXT_BLACK
 
-ai_ws_p = IMG_DIR / "selnikel_ai_workspace.png"
-if ai_ws_p.exists():
-    s9.shapes.add_picture(str(ai_ws_p), Inches(1.0), Inches(2.1), width=Inches(6.1), height=Inches(3.7))
+live_ai_p = IMG_DIR / "selnikel_ai_desktop_live.png"
+if live_ai_p.exists():
+    # Width 6.3 in -> Height 6.3 / 1.684 = 3.74 in
+    s9.shapes.add_picture(str(live_ai_p), Inches(1.0), Inches(2.1), width=Inches(6.3), height=Inches(3.74))
 
-tb_cap = s9.shapes.add_textbox(Inches(1.0), Inches(5.9), Inches(6.1), Inches(0.65))
+tb_cap = s9.shapes.add_textbox(Inches(1.0), Inches(5.95), Inches(6.3), Inches(0.6))
 tf_cap = tb_cap.text_frame
 tf_cap.word_wrap = True
 tf_cap.margin_left = tf_cap.margin_right = 0
 p_cap = tf_cap.paragraphs[0]
 r_cap1 = p_cap.add_run()
-r_cap1.text = 'Sorgu: "12 bar buhar kazanında su seviyesi alarmı neden verir?"\n'
+r_cap1.text = "Sol: "
 r_cap1.font.bold = True
-r_cap1.font.size = Pt(10)
-r_cap1.font.color.rgb = TEXT_BLACK
+r_cap1.font.size = Pt(9.5)
+r_cap1.font.color.rgb = AMBER_BRAND
+r_cap1_t = p_cap.add_run()
+r_cap1_t.text = "EN 12953, EN 13445, 2014/68/EU CE Kılavuzları • "
+r_cap1_t.font.size = Pt(9.5)
+r_cap1_t.font.color.rgb = TEXT_DARK
 r_cap2 = p_cap.add_run()
-r_cap2.text = "Kaynak Delili: Kazan_Bakim_Rev04.pdf (Sayfa 42) — Milisaniyede Doğrulandı."
-r_cap2.font.size = Pt(9.5)
+r_cap2.text = "Orta: "
 r_cap2.font.bold = True
-r_cap2.font.color.rgb = GREEN_BRAND
+r_cap2.font.size = Pt(9.5)
+r_cap2.font.color.rgb = BLUE_BRAND
+r_cap2_t = p_cap.add_run()
+r_cap2_t.text = "Soru & Özet • "
+r_cap2_t.font.size = Pt(9.5)
+r_cap2_t.font.color.rgb = TEXT_DARK
+r_cap3 = p_cap.add_run()
+r_cap3.text = "Sağ: "
+r_cap3.font.bold = True
+r_cap3.font.size = Pt(9.5)
+r_cap3.font.color.rgb = GREEN_BRAND
+r_cap3_t = p_cap.add_run()
+r_cap3_t.text = "Analiz Araçları"
+r_cap3_t.font.size = Pt(9.5)
+r_cap3_t.font.color.rgb = TEXT_DARK
 
 # Right: 5 MCP Thermodynamic Engines
-card(s9, Inches(7.5), Inches(1.55), Inches(5.033), Inches(5.15), bg=WHITE, bdr=BORDER_CARD)
+card(s9, Inches(7.7), Inches(1.55), Inches(4.833), Inches(5.15), bg=WHITE, bdr=BORDER_CARD)
 
-tb_rt = s9.shapes.add_textbox(Inches(7.7), Inches(1.7), Inches(4.6), Inches(0.55))
+tb_rt = s9.shapes.add_textbox(Inches(7.9), Inches(1.7), Inches(4.4), Inches(0.55))
 tb_rt.text_frame.margin_left = tb_rt.text_frame.margin_right = 0
 prt = tb_rt.text_frame.paragraphs[0]
 rrt = prt.add_run()
-rrt.text = "5 Adet Geliştirilen MCP Mühendislik Motoru"
+rrt.text = "5 Adet Canlı MCP Mühendislik Motoru"
 rrt.font.size = Pt(13)
 rrt.font.bold = True
 rrt.font.color.rgb = TEXT_BLACK
@@ -927,16 +984,16 @@ rrt.font.color.rgb = TEXT_BLACK
 mcp_items = [
     ("🔥 1. Kazan Verimi", "ASME PTC 4 Standardı", "Baca gazı ve radyasyon kayıplarıyla net verim"),
     ("🔒 2. Emniyet Ventili", "EN ISO 4126 Standardı", "Orifis alanı ve tahliye kapasitesi boyutlandırma"),
-    ("💨 3. Endüstriyel Fan Debisi", "AMCA 210 Standardı", "Hava debisi, statik basınç ve motor gücü hesabı"),
+    ("💨 3. Fan Debisi & Basınç", "AMCA 210 Standardı", "Hava debisi, statik basınç ve motor gücü hesabı"),
     ("⚡ 4. Brülör Yanma Analizi", "Stokiyometrik Analiz", "Doğalgaz / fuel-oil teorik hava ve emisyon kontrolü"),
     ("♻️ 5. Ekonomizer Geri Kazanım", "Isı Geri Kazanımı", "Baca gazı atık ısı ve yıllık doğalgaz tasarrufu")
 ]
 
 for idx, (mtitle, mstd, mdesc) in enumerate(mcp_items):
     my = Inches(2.4 + idx * 0.84)
-    card(s9, Inches(7.7), my, Inches(4.633), Inches(0.76), bg=BG_LIGHT, bdr=BORDER_CARD)
+    card(s9, Inches(7.9), my, Inches(4.433), Inches(0.76), bg=BG_LIGHT, bdr=BORDER_CARD)
 
-    tb_m = s9.shapes.add_textbox(Inches(7.85), my + Inches(0.08), Inches(4.333), Inches(0.6))
+    tb_m = s9.shapes.add_textbox(Inches(8.05), my + Inches(0.08), Inches(4.133), Inches(0.6))
     tf_m = tb_m.text_frame
     tf_m.word_wrap = True
     tf_m.margin_left = tf_m.margin_top = tf_m.margin_right = tf_m.margin_bottom = 0
@@ -1029,7 +1086,6 @@ set_bg(s11, BG_LIGHT)
 add_header(s11, "PROJE 3: FABRİKA, LOJİSTİK & İK PLATFORMU", "Selnikel One — Kurumsal Dijital Yönetim Omurgası",
            '"Birlikte, Yolunda." — İmalat çarklarını, servis filosunu ve çalışan refahını tek masada buluşturan sistem', kcol=GREEN_BRAND)
 
-# Philosophy Card
 card(s11, Inches(0.8), Inches(1.55), Inches(11.733), Inches(1.15), bg=WHITE, bdr=BORDER_CARD)
 tb_phil = s11.shapes.add_textbox(Inches(1.1), Inches(1.68), Inches(11.133), Inches(0.9))
 tf_ph = tb_phil.text_frame
@@ -1050,7 +1106,6 @@ rph2.text = "Servis araçlarının belirsizliği, turnike mesai durumunun bilinm
 rph2.font.size = Pt(11.5)
 rph2.font.color.rgb = TEXT_DARK
 
-# 5 Module Cards (Big & Bold)
 mods11 = [
     ("MODÜL 1", "Servis & Canlı GPS", GREEN_BRAND, GREEN_BG, GREEN_BDR,
      "Kendi servislerimizin canlı harita takibi. İzinli personelin durağı otomatik elenir; şoför en kısa yakıt rotasından ilerler."),
@@ -1241,7 +1296,7 @@ for i, (mtitle, mcol, mbullets) in enumerate(sol_mods13):
 add_footer(s13, 13)
 
 # ══════════════════════════════════════════════════════════════
-# SLIDE 14: PROJE 3 — MOBİL EKRANLAR
+# SLIDE 14: PROJE 3 — YENİ MOBİL UYGULAMA EKRANLARI
 # ══════════════════════════════════════════════════════════════
 s14 = prs.slides.add_slide(prs.slide_layouts[6])
 set_bg(s14, BG_LIGHT)
@@ -1275,9 +1330,10 @@ for i, (mimg, mname, mdesc) in enumerate(mobile_screens14):
 
     img_path = IMG_DIR / mimg
     if img_path.exists():
-        s14.shapes.add_picture(str(img_path), cx + Inches(0.1), cy + Inches(0.5), width=cw - Inches(0.2), height=Inches(3.85))
+        # Exact phone aspect ratio: width 1.95 in -> height 3.96 in
+        s14.shapes.add_picture(str(img_path), cx + Inches(0.11), cy + Inches(0.48), width=Inches(1.96), height=Inches(3.98))
 
-    tb_c = s14.shapes.add_textbox(cx + Inches(0.1), cy + Inches(4.45), cw - Inches(0.2), Inches(0.6))
+    tb_c = s14.shapes.add_textbox(cx + Inches(0.1), cy + Inches(4.55), cw - Inches(0.2), Inches(0.5))
     tf_c = tb_c.text_frame
     tf_c.word_wrap = True
     tf_c.margin_left = tf_c.margin_top = tf_c.margin_right = tf_c.margin_bottom = 0
@@ -1291,38 +1347,40 @@ for i, (mimg, mname, mdesc) in enumerate(mobile_screens14):
 add_footer(s14, 14)
 
 # ══════════════════════════════════════════════════════════════
-# SLIDE 15: ROTA OPTİMİZASYONU & SOMUT FİNANSAL KAZANÇ
+# SLIDE 15: PROJE 3 — YENİ ROTA KOKPİTİ ARAYÜZÜ (cockpit_optimization)
 # ══════════════════════════════════════════════════════════════
 s15 = prs.slides.add_slide(prs.slide_layouts[6])
 set_bg(s15, BG_LIGHT)
-add_header(s15, "PROJE 3: FİNANSAL KAZANÇ (ROI)", "Servis Güzergah Optimizasyonu ve Net Tasarruf",
+add_header(s15, "PROJE 3: ROTA KOKPİTİ & ROI", "Selnikel One: Servis Optimizasyon Kokpiti & Net Tasarruf",
            "148 çalışanın adres verisiyle Google OR-Tools ve Valhalla modelleme sonuçları", kcol=GREEN_BRAND)
 
-# Left: Route Map Graphic
-card(s15, Inches(0.8), Inches(1.55), Inches(5.8), Inches(5.15), bg=WHITE, bdr=BORDER_CARD)
+# Left: Real Live Selnikel One Optimization Cockpit Interface (cockpit_optimization.png)
+card(s15, Inches(0.8), Inches(1.55), Inches(6.6), Inches(5.15), bg=WHITE, bdr=BORDER_CARD)
 
-tb_mapt = s15.shapes.add_textbox(Inches(1.0), Inches(1.7), Inches(5.4), Inches(0.35))
+tb_mapt = s15.shapes.add_textbox(Inches(1.0), Inches(1.7), Inches(6.2), Inches(0.35))
 tb_mapt.text_frame.margin_left = tb_mapt.text_frame.margin_right = 0
 pmapt = tb_mapt.text_frame.paragraphs[0]
 rmapt = pmapt.add_run()
-rmapt.text = "124 Duraklı Akıllı Güzergah Haritası"
-rmapt.font.size = Pt(13)
+rmapt.text = "Selnikel One: OR-Tools VRPTW Çok Aşamalı Servis Kokpiti"
+rmapt.font.size = Pt(12.5)
 rmapt.font.bold = True
 rmapt.font.color.rgb = TEXT_BLACK
 
-map_p = IMG_DIR / "map_routes.png"
-if map_p.exists():
-    s15.shapes.add_picture(str(map_p), Inches(1.0), Inches(2.1), width=Inches(5.4), height=Inches(3.7))
+cockpit_p = IMG_DIR / "cockpit_optimization.png"
+if cockpit_p.exists():
+    # Aspect 1600x1000 = 1.60. Width 6.2 in -> Height 3.87 in
+    s15.shapes.add_picture(str(cockpit_p), Inches(1.0), Inches(2.1), width=Inches(6.2), height=Inches(3.87))
 
-tb_mapsub = s15.shapes.add_textbox(Inches(1.0), Inches(5.9), Inches(5.4), Inches(0.65))
+tb_mapsub = s15.shapes.add_textbox(Inches(1.0), Inches(6.1), Inches(6.2), Inches(0.5))
 tf_ms = tb_mapsub.text_frame
 tf_ms.word_wrap = True
 tf_ms.margin_left = tf_ms.margin_right = 0
 pms = tf_ms.paragraphs[0]
 rms = pms.add_run()
-rms.text = "148 çalışanın ev adresleri 124 güvenli durağa kümelenerek matematiksel VRPTW modeliyle optimize edildi."
+rms.text = "148 personel, 124 güvenli durak • Çift planlı paralel rota karşılaştırma motoru."
 rms.font.size = Pt(9.5)
-rms.font.color.rgb = TEXT_MUTED
+rms.font.bold = True
+rms.font.color.rgb = GREEN_BRAND
 
 # Right: 4 Giant Financial Cards
 rois15 = [
@@ -1334,14 +1392,14 @@ rois15 = [
 
 for idx, (rtitle, rsub, rdesc, rcol) in enumerate(rois15):
     ry = Inches(1.55 + idx * 1.3)
-    card(s15, Inches(6.8), ry, Inches(5.733), Inches(1.18), bg=WHITE, bdr=BORDER_CARD)
+    card(s15, Inches(7.6), ry, Inches(4.933), Inches(1.18), bg=WHITE, bdr=BORDER_CARD)
 
-    lbar = s15.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(6.8), ry, Inches(0.08), Inches(1.18))
+    lbar = s15.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(7.6), ry, Inches(0.08), Inches(1.18))
     lbar.fill.solid()
     lbar.fill.fore_color.rgb = rcol
     lbar.line.fill.background()
 
-    tb = s15.shapes.add_textbox(Inches(7.05), ry + Inches(0.12), Inches(5.3), Inches(0.95))
+    tb = s15.shapes.add_textbox(Inches(7.85), ry + Inches(0.12), Inches(4.5), Inches(0.95))
     tf = tb.text_frame
     tf.word_wrap = True
     tf.margin_left = tf.margin_top = tf.margin_right = tf.margin_bottom = 0
@@ -1349,12 +1407,12 @@ for idx, (rtitle, rsub, rdesc, rcol) in enumerate(rois15):
     p1 = tf.paragraphs[0]
     r1 = p1.add_run()
     r1.text = rtitle + " — "
-    r1.font.size = Pt(13)
+    r1.font.size = Pt(12)
     r1.font.bold = True
     r1.font.color.rgb = rcol
     r1_s = p1.add_run()
     r1_s.text = rsub
-    r1_s.font.size = Pt(11)
+    r1_s.font.size = Pt(10.5)
     r1_s.font.bold = True
     r1_s.font.color.rgb = TEXT_BLACK
 
@@ -1362,7 +1420,7 @@ for idx, (rtitle, rsub, rdesc, rcol) in enumerate(rois15):
     p2.space_before = Pt(3)
     r2 = p2.add_run()
     r2.text = rdesc
-    r2.font.size = Pt(10)
+    r2.font.size = Pt(9.5)
     r2.font.color.rgb = TEXT_DARK
 
 add_footer(s15, 15)
@@ -1429,7 +1487,7 @@ for i, (gtitle, gsub, gdesc, gcol) in enumerate(total_gains16):
 add_footer(s16, 16)
 
 # ══════════════════════════════════════════════════════════════
-# SLIDE 17: TEŞEKKÜR & SORU - CEVAP (Real Selnikel Factory Image)
+# SLIDE 17: TEŞEKKÜR & SORU - CEVAP (Clean Executive Closing)
 # ══════════════════════════════════════════════════════════════
 s17 = prs.slides.add_slide(prs.slide_layouts[6])
 set_bg(s17, WHITE)
@@ -1443,7 +1501,7 @@ logo_p = IMG_DIR / "selnikel_logo.png"
 if logo_p.exists():
     s17.shapes.add_picture(str(logo_p), Inches(0.8), Inches(0.55), width=Inches(2.8))
 
-tb_close = s17.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(6.8), Inches(1.7))
+tb_close = s17.shapes.add_textbox(Inches(0.8), Inches(1.8), Inches(6.6), Inches(1.7))
 tf_c17 = tb_close.text_frame
 tf_c17.word_wrap = True
 tf_c17.margin_left = tf_c17.margin_top = tf_c17.margin_right = tf_c17.margin_bottom = 0
@@ -1451,7 +1509,7 @@ tf_c17.margin_left = tf_c17.margin_top = tf_c17.margin_right = tf_c17.margin_bot
 pc1 = tf_c17.paragraphs[0]
 rc1 = pc1.add_run()
 rc1.text = "Teşekkür Ederim"
-rc1.font.size = Pt(36)
+rc1.font.size = Pt(38)
 rc1.font.bold = True
 rc1.font.color.rgb = TEXT_BLACK
 
@@ -1464,8 +1522,8 @@ rc2.font.color.rgb = RED_BRAND
 rc2.font.bold = True
 
 # Presenter Card
-card(s17, Inches(0.8), Inches(3.6), Inches(6.5), Inches(2.2), bg=BG_LIGHT, bdr=BORDER_CARD)
-tb_cp = s17.shapes.add_textbox(Inches(1.1), Inches(3.8), Inches(6.0), Inches(1.8))
+card(s17, Inches(0.8), Inches(3.8), Inches(6.4), Inches(2.0), bg=BG_LIGHT, bdr=BORDER_CARD)
+tb_cp = s17.shapes.add_textbox(Inches(1.1), Inches(4.0), Inches(5.9), Inches(1.6))
 tf_cp = tb_cp.text_frame
 tf_cp.word_wrap = True
 tf_cp.margin_left = tf_cp.margin_top = tf_cp.margin_right = tf_cp.margin_bottom = 0
@@ -1484,7 +1542,7 @@ rr2.font.bold = True
 rr2.font.color.rgb = TEXT_DARK
 
 rr3 = pp1.add_run()
-rr3.text = "Selnikel Enerji A.Ş. — IT Bölümü Yazılım Stajyeri\n\n"
+rr3.text = "Selnikel Enerji A.Ş. IT Bölümü — Yazılım Stajyeri  •  Eylül 2026\n\n"
 rr3.font.size = Pt(11)
 rr3.font.color.rgb = TEXT_MUTED
 
@@ -1501,34 +1559,88 @@ rr4_b.font.color.rgb = BLUE_BRAND
 # 3 Horizontal Summary Pills
 pills_close17 = [
     ("Proje 1: Kurumsal Web", BLUE_BG, BLUE_BRAND, BLUE_BDR),
-    ("Proje 2: Selnikel AI (RAG + MCP)", AMBER_BG, AMBER_BRAND, AMBER_BDR),
-    ("Proje 3: Selnikel One & Rota", GREEN_BG, GREEN_BRAND, GREEN_BDR),
+    ("Proje 2: Selnikel AI", AMBER_BG, AMBER_BRAND, AMBER_BDR),
+    ("Proje 3: Selnikel One", GREEN_BG, GREEN_BRAND, GREEN_BDR),
 ]
 for i, (ptext, pbg, pcol, pbdr) in enumerate(pills_close17):
-    px = Inches(0.8 + i * 2.2)
-    py = Inches(6.05)
-    card(s17, px, py, Inches(2.1), Inches(0.44), bg=pbg, bdr=pbdr)
-    tbp = s17.shapes.add_textbox(px, py + Inches(0.08), Inches(2.1), Inches(0.28))
+    px = Inches(0.8 + i * 2.18)
+    py = Inches(6.0)
+    card(s17, px, py, Inches(2.08), Inches(0.48), bg=pbg, bdr=pbdr)
+    tbp = s17.shapes.add_textbox(px, py + Inches(0.1), Inches(2.08), Inches(0.28))
     tbp.text_frame.margin_left = tbp.text_frame.margin_right = 0
     p = tbp.text_frame.paragraphs[0]
     p.alignment = PP_ALIGN.CENTER
     r = p.add_run()
     r.text = ptext
-    r.font.size = Pt(9)
+    r.font.size = Pt(9.5)
     r.font.bold = True
     r.font.color.rgb = pcol
 
-# REAL SELNIKEL INDUSTRIAL PLANT IMAGE on Right
-real_fac_p = IMG_DIR / "selnikel_fabrika_tesis.png"
-if not real_fac_p.exists():
-    real_fac_p = IMG_DIR / "product_facility.png"
+# RIGHT SIDE: EXECUTIVE 3-PROJECT SUMMARY CARD (Clean, Professional, No Stretched Photos!)
+card(s17, Inches(7.5), Inches(1.3), Inches(5.033), Inches(5.15), bg=WHITE, bdr=BORDER_CARD)
 
-if real_fac_p.exists():
-    card(s17, Inches(7.6), Inches(1.2), Inches(4.9), Inches(5.15), bg=WHITE, bdr=BORDER_CARD)
-    s17.shapes.add_picture(str(real_fac_p), Inches(7.7), Inches(1.3), width=Inches(4.7), height=Inches(4.95))
+top_s17 = s17.shapes.add_shape(MSO_SHAPE.RECTANGLE, Inches(7.5), Inches(1.3), Inches(5.033), Inches(0.45))
+top_s17.fill.solid()
+top_s17.fill.fore_color.rgb = SLATE_BG
+top_s17.line.color.rgb = BORDER_CARD
+top_s17.line.width = Pt(1)
+
+tb_s17_h = s17.shapes.add_textbox(Inches(7.7), Inches(1.4), Inches(4.6), Inches(0.3))
+tb_s17_h.text_frame.margin_left = tb_s17_h.text_frame.margin_right = 0
+ps17 = tb_s17_h.text_frame.paragraphs[0]
+rs17 = ps17.add_run()
+rs17.text = "🎯 SELNİKEL DİJİTAL DÖNÜŞÜM ÖZETİ"
+rs17.font.size = Pt(11)
+rs17.font.bold = True
+rs17.font.color.rgb = TEXT_BLACK
+
+summary_boxes = [
+    ("🌐 Proje 1: Kurumsal Web Platformu",
+     "WordPress'ten Next.js 16 Enterprise'a geçiş.",
+     "%97 daha hızlı açılış • 0 SQL güvenlik açığı • 5 dilde ihracat vitrini • Teknik şartname talep formları.",
+     BLUE_BRAND, BLUE_BG, BLUE_BDR),
+    ("🧠 Proje 2: Selnikel AI Mühendislik Asistanı",
+     "RAG Mimarisi + 5 Termodinamik MCP Motoru.",
+     "1.600+ kurumsal belge hafızası • Sıfır halüsinasyon (sayfa kanıtlı) • 4 saatten 5 dakikaya şartname tarama.",
+     AMBER_BRAND, AMBER_BG, AMBER_BDR),
+    ("📱 Proje 3: Selnikel One Fabrika Platformu",
+     "Mobil Uygulama + Servis Güzergah Optimizasyonu.",
+     "Canlı servis GPS • Mobil IFS PDKS mesai takibi • Atölye iş dağılımı • Yılda ~₺2.8M doğrudan filo tasarrufu.",
+     GREEN_BRAND, GREEN_BG, GREEN_BDR),
+]
+
+for idx, (stitle, ssub, sdetails, scol, sbg, sbdr) in enumerate(summary_boxes):
+    sy = Inches(1.95 + idx * 1.45)
+    card(s17, Inches(7.7), sy, Inches(4.633), Inches(1.35), bg=sbg, bdr=sbdr)
+
+    tb_sb = s17.shapes.add_textbox(Inches(7.85), sy + Inches(0.1), Inches(4.333), Inches(1.15))
+    tf_sb = tb_sb.text_frame
+    tf_sb.word_wrap = True
+    tf_sb.margin_left = tf_sb.margin_top = tf_sb.margin_right = tf_sb.margin_bottom = 0
+
+    p1 = tf_sb.paragraphs[0]
+    r1 = p1.add_run()
+    r1.text = stitle
+    r1.font.size = Pt(11.5)
+    r1.font.bold = True
+    r1.font.color.rgb = scol
+
+    p2 = tf_sb.add_paragraph()
+    p2.space_before = Pt(2)
+    r2 = p2.add_run()
+    r2.text = ssub
+    r2.font.size = Pt(9.5)
+    r2.font.bold = True
+    r2.font.color.rgb = TEXT_BLACK
+
+    p3 = tf_sb.add_paragraph()
+    p3.space_before = Pt(3)
+    r3 = p3.add_run()
+    r3.text = sdetails
+    r3.font.size = Pt(9)
+    r3.font.color.rgb = TEXT_DARK
 
 add_footer(s17, 17)
 
-# Save
 prs.save(str(OUTPUT))
-print(f"[OK] Executive Keynote Presentation saved successfully: {OUTPUT}")
+print(f"[OK] Perfected Software Presentation saved: {OUTPUT}")
