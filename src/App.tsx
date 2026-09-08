@@ -129,18 +129,34 @@ export const App: React.FC = () => {
     setIsAppendixMode((prev) => !prev);
   }, []);
 
+  const handleResetToStart = useCallback(() => {
+    setIsAppendixMode(false);
+    setAppendixIndex(0);
+    setCurrentSlideIndex(0);
+    setIsNotesOpen(false);
+  }, []);
+
   const toggleNotes = useCallback(() => {
     setIsNotesOpen((prev) => !prev);
   }, []);
 
   const toggleFullscreen = useCallback(() => {
     if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen().then(() => setIsFullscreen(true)).catch(() => {});
+      document.documentElement.requestFullscreen().catch(() => {});
     } else {
       if (document.exitFullscreen) {
-        document.exitFullscreen().then(() => setIsFullscreen(false)).catch(() => {});
+        document.exitFullscreen().catch(() => {});
       }
     }
+  }, []);
+
+  // Sync fullscreen state with native browser events (e.g. Escape key)
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
 
   // Keyboard navigation
@@ -198,7 +214,7 @@ export const App: React.FC = () => {
     <main className="w-screen h-screen bg-[#0A0D14] flex items-center justify-center p-0 md:p-6 overflow-hidden select-none">
       {/* 16:9 PowerPoint Presentation Canvas */}
       <SlideContainer>
-        <SlideErrorBoundary onReset={() => setCurrentSlideIndex(0)}>
+        <SlideErrorBoundary onReset={handleResetToStart}>
           <CurrentSlideComponent />
         </SlideErrorBoundary>
       </SlideContainer>
@@ -227,7 +243,7 @@ export const App: React.FC = () => {
       <MagicHandController
         onNext={handleNext}
         onPrev={handlePrev}
-        currentSlide={isAppendixMode ? appendixIndex : currentSlideIndex}
+        currentSlide={isAppendixMode ? safeAppIndex : safeCoreIndex}
         totalSlides={isAppendixMode ? totalApp : totalCore}
       />
     </main>

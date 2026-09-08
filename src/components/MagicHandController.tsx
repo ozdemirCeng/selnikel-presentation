@@ -55,6 +55,7 @@ export const MagicHandController: React.FC<MagicHandControllerProps> = ({
   const leftHandHistoryRef = useRef<HandSample[]>([]);
   const rightHandHistoryRef = useRef<HandSample[]>([]);
   const singleHandHistoryRef = useRef<HandSample[]>([]);
+  const wasPointingRef = useRef<boolean>(false);
 
   // Sound Synthesizer (Crisp subtle click/whoosh)
   const playSound = useCallback((type: 'next' | 'prev') => {
@@ -159,14 +160,20 @@ export const MagicHandController: React.FC<MagicHandControllerProps> = ({
       // 1. Parse all detected hands
       const parsedHands = handsLandmarks.map((landmarks) => {
         const wrist = landmarks[0];
-        const indexTip = landmarks[8];
+        const thumbTip = landmarks[4];
+        const thumbMcp = landmarks[2];
+        const indexMcp = landmarks[5];
         const indexPip = landmarks[6];
-        const middleTip = landmarks[12];
+        const indexTip = landmarks[8];
+        const middleMcp = landmarks[9];
         const middlePip = landmarks[10];
-        const ringTip = landmarks[16];
+        const middleTip = landmarks[12];
+        const ringMcp = landmarks[13];
         const ringPip = landmarks[14];
-        const pinkyTip = landmarks[20];
+        const ringTip = landmarks[16];
+        const pinkyMcp = landmarks[17];
         const pinkyPip = landmarks[18];
+        const pinkyTip = landmarks[20];
         const palmCenter = landmarks[9];
 
         // Mirrored X coordinates
@@ -175,19 +182,41 @@ export const MagicHandController: React.FC<MagicHandControllerProps> = ({
         const mirroredIndexX = 1 - indexTip.x;
         const indexY = indexTip.y;
 
-        const isExtended = (tip: { x: number; y: number }, pip: { x: number; y: number }) => {
-          const dTip = Math.hypot(tip.x - wrist.x, tip.y - wrist.y);
-          const dPip = Math.hypot(pip.x - wrist.x, pip.y - wrist.y);
-          return dTip > dPip * 1.15;
+        // 3D Euclidean distance calculation for robust depth & tilt support
+        const dist3D = (
+          p1: { x: number; y: number; z?: number },
+          p2: { x: number; y: number; z?: number }
+        ) => {
+          const dx = p1.x - p2.x;
+          const dy = p1.y - p2.y;
+          const dz = (p1.z ?? 0) - (p2.z ?? 0);
+          return Math.sqrt(dx * dx + dy * dy + dz * dz);
         };
 
-        const indexOpen = isExtended(indexTip, indexPip);
-        const middleOpen = isExtended(middleTip, middlePip);
-        const ringOpen = isExtended(ringTip, ringPip);
-        const pinkyOpen = isExtended(pinkyTip, pinkyPip);
+        const isExtended = (
+          tip: { x: number; y: number; z?: number },
+          pip: { x: number; y: number; z?: number },
+          mcp: { x: number; y: number; z?: number }
+        ) => {
+          const dTipWrist = dist3D(tip, wrist);
+          const dPipWrist = dist3D(pip, wrist);
+          const dTipMcp = dist3D(tip, mcp);
+          const dPipMcp = dist3D(pip, mcp);
+          return dTipWrist > dPipWrist * 1.15 && dTipMcp > dPipMcp * 1.10;
+        };
 
-        // Pointing gesture: ONLY index finger extended, other 3 curled into palm
-        const isPointing = indexOpen && !middleOpen && !ringOpen && !pinkyOpen;
+        const indexOpen = isExtended(indexTip, indexPip, indexMcp);
+        const middleOpen = isExtended(middleTip, middlePip, middleMcp);
+        const ringOpen = isExtended(ringTip, ringPip, ringMcp);
+        const pinkyOpen = isExtended(pinkyTip, pinkyPip, pinkyMcp);
+
+        // Thumb check: Thumb is considered extended if its tip is far from wrist and base of index finger
+        const thumbExtended =
+          dist3D(thumbTip, wrist) > dist3D(thumbMcp, wrist) * 1.25 &&
+          dist3D(thumbTip, indexMcp) > dist3D(thumbMcp, indexMcp) * 1.20;
+
+        // Pointing gesture: ONLY index finger extended, thumb folded, other 3 fingers curled into palm
+        const isPointing = indexOpen && !middleOpen && !ringOpen && !pinkyOpen && !thumbExtended;
 
         return {
           landmarks,
@@ -235,6 +264,12 @@ export const MagicHandController: React.FC<MagicHandControllerProps> = ({
       // 3. Laser Pointer Mode (Zero text labels, clean red laser pinpoint)
       const pointingHand = parsedHands.find((h) => h.isPointing);
       if (pointingHand) {
+        // Clear gesture tracking history while pointing so pointer movement doesn't leave stale swipe points
+        leftHandHistoryRef.current = [];
+        rightHandHistoryRef.current = [];
+        singleHandHistoryRef.current = [];
+        wasPointingRef.current = true;
+
         const rx = Math.max(0.02, Math.min(0.98, 0.5 + (pointingHand.mirroredIndexX - 0.5) * 1.85));
         const ry = Math.max(0.02, Math.min(0.98, 0.45 + (pointingHand.indexY - 0.45) * 1.65));
 
@@ -263,6 +298,15 @@ export const MagicHandController: React.FC<MagicHandControllerProps> = ({
         setStatusMessage('İşaretçi');
         ctx.restore();
         return; // Suppress slide triggers while presenter is pointing
+      }
+
+      // If user was pointing in previous frame and just stopped pointing, flush history and activate small cooldown
+      if (wasPointingRef.current) {
+        leftHandHistoryRef.current = [];
+        rightHandHistoryRef.current = [];
+        singleHandHistoryRef.current = [];
+        wasPointingRef.current = false;
+        lastActionTimeRef.current = Math.max(lastActionTimeRef.current, now - 600); // 250ms guard left
       }
 
       setPointerPos((prev) => (prev.visible ? { ...prev, visible: false } : prev));
@@ -307,15 +351,15 @@ export const MagicHandController: React.FC<MagicHandControllerProps> = ({
         if (!isCooldown) {
           setStatusMessage('2 El Algılandı (Hazır)');
 
-          // Check Right Hand for NEXT slide
+          // Check Right Hand for NEXT slide (Symmetric thresholds)
           if (rightHistory.length >= 2) {
             const oldestR = rightHistory[0];
             const dxR = rightHand.mirroredX - oldestR.x;
             const dyR = rightHand.y - oldestR.y;
             const dtR = now - oldestR.time;
 
-            const isRightSwipe = dtR >= 90 && dxR > 0.12 && Math.abs(dxR) > 1.1 * Math.abs(dyR);
-            const isRightZonePush = oldestR.x < 0.65 && rightHand.mirroredX > 0.72;
+            const isRightSwipe = dtR >= 90 && dtR <= 400 && dxR > 0.12 && Math.abs(dxR) > 1.25 * Math.abs(dyR);
+            const isRightZonePush = oldestR.x < 0.60 && rightHand.mirroredX > 0.75 && dxR > 0.12 && Math.abs(dxR) > 1.25 * Math.abs(dyR);
 
             if (isRightSwipe || isRightZonePush) {
               triggerSlide('next');
@@ -324,15 +368,15 @@ export const MagicHandController: React.FC<MagicHandControllerProps> = ({
             }
           }
 
-          // Check Left Hand for PREV slide
+          // Check Left Hand for PREV slide (Symmetric thresholds)
           if (leftHistory.length >= 2) {
             const oldestL = leftHistory[0];
             const dxL = leftHand.mirroredX - oldestL.x;
             const dyL = leftHand.y - oldestL.y;
             const dtL = now - oldestL.time;
 
-            const isLeftSwipe = dtL >= 90 && dxL < -0.12 && Math.abs(dxL) > 1.1 * Math.abs(dyL);
-            const isLeftZonePush = oldestL.x > 0.35 && leftHand.mirroredX < 0.28;
+            const isLeftSwipe = dtL >= 90 && dtL <= 400 && dxL < -0.12 && Math.abs(dxL) > 1.25 * Math.abs(dyL);
+            const isLeftZonePush = oldestL.x > 0.40 && leftHand.mirroredX < 0.25 && dxL < -0.12 && Math.abs(dxL) > 1.25 * Math.abs(dyL);
 
             if (isLeftSwipe || isLeftZonePush) {
               triggerSlide('prev');
@@ -358,12 +402,18 @@ export const MagicHandController: React.FC<MagicHandControllerProps> = ({
             const dy = singleHand.y - oldest.y;
             const dt = now - oldest.time;
 
-            if (dt >= 90 && Math.abs(dx) > 1.1 * Math.abs(dy)) {
-              if (dx > 0.13 || (oldest.x < 0.62 && singleHand.mirroredX > 0.72)) {
+            if (dt >= 90 && dt <= 400 && Math.abs(dx) > 1.25 * Math.abs(dy)) {
+              const isRightSwipe = dx > 0.12;
+              const isRightZonePush = oldest.x < 0.60 && singleHand.mirroredX > 0.75;
+
+              const isLeftSwipe = dx < -0.12;
+              const isLeftZonePush = oldest.x > 0.40 && singleHand.mirroredX < 0.25;
+
+              if (isRightSwipe || isRightZonePush) {
                 triggerSlide('next');
                 ctx.restore();
                 return;
-              } else if (dx < -0.13 || (oldest.x > 0.38 && singleHand.mirroredX < 0.28)) {
+              } else if (isLeftSwipe || isLeftZonePush) {
                 triggerSlide('prev');
                 ctx.restore();
                 return;
@@ -442,8 +492,8 @@ export const MagicHandController: React.FC<MagicHandControllerProps> = ({
       hands.setOptions({
         maxNumHands: 2, // Catch both hands simultaneously
         modelComplexity: 1,
-        minDetectionConfidence: 0.30,
-        minTrackingConfidence: 0.30,
+        minDetectionConfidence: 0.60, // Robust against lighting and background clutter in projection environments
+        minTrackingConfidence: 0.55,
       });
 
       hands.onResults((res) => onResultsRef.current(res));
