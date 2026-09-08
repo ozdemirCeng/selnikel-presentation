@@ -77,7 +77,7 @@ export const Slide12_Roadmap: React.FC = () => {
           ))}
         </div>
 
-        <div className="text-xs text-slate-500 font-mono pt-3 border-t border-slate-900">
+        <div className="text-xs text-slate-500 font-mono pt-3 border-t border-slate-800">
           Selnikel Isı & Makina Sanayi A.Ş. • Mühendislik & Yazılım Çözümü • 2026
         </div>
       </div>
@@ -88,7 +88,7 @@ export const Slide12_Roadmap: React.FC = () => {
           <img
             src="/images/hq.jpg"
             alt="Selnikel Genel Merkez"
-            className="w-full h-full object-cover brightness-60 contrast-110"
+            className="w-full h-full object-cover brightness-[0.55] contrast-[1.15]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-transparent"></div>
         </div>

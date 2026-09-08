@@ -30,9 +30,9 @@ export const Slide09_SelnikelAI: React.FC = () => {
             <span className="text-emerald-400 font-mono text-[11px]">Sources Verified</span>
           </div>
           <img src="/images/selnikel_ai_workspace.png" alt="Selnikel AI Arayüzü" className="w-full h-[330px] object-cover object-top" />
-          <div className="absolute bottom-3 left-3 right-3 p-2.5 rounded-xl bg-slate-950/85 backdrop-blur-md text-white text-[11px] flex items-center justify-between">
-            <span>🔍 <strong>Sorgu:</strong> "Buhar kazanında 12 bar basınçta su seviyesi alarmı neden verir?"</span>
-            <span className="text-amber-400 font-bold">Kaynak: Kazan_Bakim_Rev04.pdf (s. 42)</span>
+          <div className="absolute bottom-3 left-3 right-3 p-2.5 rounded-xl bg-slate-950/90 backdrop-blur-md text-white text-[11px] flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-lg">
+            <span className="truncate min-w-0">🔍 <strong>Sorgu:</strong> "Buhar kazanında 12 bar basınçta su seviyesi alarmı neden verir?"</span>
+            <span className="text-amber-400 font-bold whitespace-nowrap flex-shrink-0 bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20">Kaynak: Kazan_Bakim_Rev04.pdf (s. 42)</span>
           </div>
         </div>
 

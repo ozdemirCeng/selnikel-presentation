@@ -83,7 +83,7 @@ export const Slide11_IntegratedROI: React.FC = () => {
             <div>
               {/* Header Badge */}
               <div className="flex items-center justify-between mb-2">
-                <span className={`px-2 py-0.5 rounded-full text-[9px] font-black border uppercase font-mono ${item.color}`}>
+                <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-black border uppercase font-mono tracking-wider ${item.color}`}>
                   {item.badge}
                 </span>
                 <span className="text-xs font-bold text-slate-400 font-mono">0{idx + 1}</span>

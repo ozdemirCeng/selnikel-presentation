@@ -12,11 +12,11 @@ export const Slide06_MobileDriver: React.FC = () => {
           <SelnikelInteractiveLogo size="sm" />
           <span className="text-slate-300">│</span>
           <div>
-            <span className="text-xs font-mono font-bold text-blue-600 uppercase tracking-wider">06 │ SÜTUN 2: SÜRÜCÜ & TELEMETRİ</span>
+            <span className="text-xs font-mono font-bold text-cyan-600 uppercase tracking-wider">06 │ SÜTUN 2: SÜRÜCÜ & TELEMETRİ</span>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900">Sürücü Aktif Sefer Modu & Kesintisiz GPS</h2>
           </div>
         </div>
-        <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold">11 Araç • Kesintisiz Sefer</span>
+        <span className="px-3 py-1 rounded-full bg-cyan-100 text-cyan-800 text-xs font-bold">11 Araç • Kesintisiz Sefer</span>
       </div>
 
       {/* Main Grid: 3 Mobile Screenshots (Left 42%) + 3 Clean Executive Cards (Right 58%) */}
@@ -39,7 +39,7 @@ export const Slide06_MobileDriver: React.FC = () => {
             transition={{ duration: 0.35, delay: 0.1 }}
             className="rounded-2xl overflow-hidden border-2 border-slate-800 shadow-md bg-white flex flex-col"
           >
-            <div className="bg-blue-600 text-white p-1 text-center text-[10px] font-bold">2. Yolcu Listesi</div>
+            <div className="bg-cyan-600 text-white p-1 text-center text-[10px] font-bold">2. Yolcu Listesi</div>
             <img src="/images/mobile_manifest.png" alt="Yolcu Listesi" className="w-full h-auto object-cover" />
           </motion.div>
 
@@ -59,8 +59,8 @@ export const Slide06_MobileDriver: React.FC = () => {
           {/* Card 1: Canlı Yolcu Manifestosu */}
           <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] font-mono font-bold text-blue-600 uppercase tracking-wider flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-blue-600" /> DİNAMİK YOLCU MANİFESTOSU
+              <span className="text-[11px] font-mono font-bold text-cyan-600 uppercase tracking-wider flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-cyan-600" /> DİNAMİK YOLCU MANİFESTOSU
               </span>
               <span className="px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-bold">
                 %0 Yolcu Kaçırma
@@ -77,7 +77,7 @@ export const Slide06_MobileDriver: React.FC = () => {
               <span className="text-[11px] font-mono font-bold text-emerald-600 uppercase tracking-wider flex items-center gap-1.5">
                 <TrendingUp className="w-4 h-4 text-emerald-600" /> KESİNTİSİZ OFFLINE GPS MOTORU
               </span>
-              <span className="px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 text-[11px] font-bold">
+              <span className="px-2.5 py-0.5 rounded-full bg-cyan-100 text-cyan-800 text-[11px] font-bold">
                 Sıfır Veri Kaybı
               </span>
             </div>
@@ -87,14 +87,14 @@ export const Slide06_MobileDriver: React.FC = () => {
           </div>
 
           {/* Card 3: Gelecek Vizyonu */}
-          <div className="p-3.5 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200/80 flex items-center justify-between">
+          <div className="p-3.5 rounded-2xl bg-gradient-to-r from-cyan-50 to-blue-50 border border-cyan-200/80 flex items-center justify-between">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-blue-600 text-white flex items-center justify-center flex-shrink-0">
+              <div className="w-8 h-8 rounded-xl bg-cyan-600 text-white flex items-center justify-center flex-shrink-0">
                 <Sparkles className="w-4 h-4" />
               </div>
               <div>
-                <span className="text-[11px] font-black text-blue-950 uppercase tracking-wider">GELECEK VİZYONU</span>
-                <p className="text-xs text-blue-900 font-medium mt-0.5">
+                <span className="text-[11px] font-black text-cyan-950 uppercase tracking-wider">GELECEK VİZYONU</span>
+                <p className="text-xs text-cyan-900 font-medium mt-0.5">
                   OCR ile benzinlik yakıt fişlerinin otomatik taranması • Şoföre canlı sesli akıllı rota asistanı
                 </p>
               </div>
@@ -105,9 +105,9 @@ export const Slide06_MobileDriver: React.FC = () => {
 
       {/* Bottom Footer */}
       <div className="p-3 rounded-2xl bg-slate-900 text-white flex items-center justify-between text-xs sm:text-sm">
-        <span className="font-bold text-blue-400">🛡️ SÜTUN 2 (SÜRÜCÜ):</span>
+        <span className="font-bold text-cyan-400">🛡️ SÜTUN 2 (SÜRÜCÜ):</span>
         <span className="text-slate-300">Rotadan sapmalar, belirsiz beklemeler ve bilgi kayıpları bitti; 11 araç fabrikadan canlı denetlenebilir hale geldi.</span>
-        <span className="font-mono text-xs px-2.5 py-1 rounded bg-blue-500/20 text-blue-300">Doğrulanmış Saha Testi</span>
+        <span className="font-mono text-xs px-2.5 py-1 rounded bg-cyan-500/20 text-cyan-300">Doğrulanmış Saha Testi</span>
       </div>
     </div>
   );

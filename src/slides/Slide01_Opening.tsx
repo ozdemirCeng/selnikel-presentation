@@ -112,7 +112,7 @@ export const Slide01_Opening: React.FC = () => {
           <div className="grid grid-cols-2 gap-4">
             <div className="p-4 rounded-2xl bg-white/10 border border-white/15">
               <span className="text-slate-300 text-xs font-medium">Tecrübe</span>
-              <div className="text-4xl font-black text-white mt-1">71 <span className="text-base font-normal text-slate-300">Yıl</span></div>
+              <div className="text-4xl font-black text-white mt-1">70+ <span className="text-base font-normal text-slate-300">Yıl</span></div>
             </div>
             <div className="p-4 rounded-2xl bg-white/10 border border-white/15">
               <span className="text-slate-300 text-xs font-medium">Fabrika</span>

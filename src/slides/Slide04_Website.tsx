@@ -5,8 +5,8 @@ import { SelnikelInteractiveLogo } from '../components/SelnikelInteractiveLogo';
 
 export const Slide04_Website: React.FC = () => {
   const products = [
-    { name: 'Endüstriyel Kazanlar', desc: 'Buhar, kızgın su & atık ısı', image: '/images/product_boiler_burner.png' },
-    { name: 'Endüstriyel Brülörler', desc: 'Monoblok & düoblok yüksek verim', image: '/images/boiler.jpg' },
+    { name: 'Endüstriyel Kazanlar', desc: 'Buhar, kızgın su & atık ısı', image: '/images/boiler.jpg' },
+    { name: 'Endüstriyel Brülörler', desc: 'Monoblok & duoblok yüksek verim', image: '/images/product_boiler_burner.png' },
     { name: 'Endüstriyel Fanlar', desc: 'Ağır sanayi radyal & aksiyal', image: '/images/product_fan.png' },
     { name: 'Ekonomizer Sistemleri', desc: 'Baca gazından atık ısı geri kazanımı', image: '/images/product_facility.png' },
   ];
