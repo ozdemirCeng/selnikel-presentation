@@ -186,23 +186,27 @@ tf_p = tb_pres.text_frame
 tf_p.word_wrap = True
 tf_p.margin_left = tf_p.margin_top = tf_p.margin_right = tf_p.margin_bottom = 0
 
-pp1 = tf_p.paragraphs[0]
-rr1 = pp1.add_run()
-rr1.text = "Ömer Faruk Özdemir\n"
-rr1.font.size = Pt(16)
-rr1.font.bold = True
-rr1.font.color.rgb = TEXT_BLACK
+p1 = tf_p.paragraphs[0]
+r1 = p1.add_run()
+r1.text = "Ömer Faruk Özdemir"
+r1.font.size = Pt(16)
+r1.font.bold = True
+r1.font.color.rgb = TEXT_BLACK
 
-rr2 = pp1.add_run()
-rr2.text = "Kocaeli Üniversitesi — Bilgisayar Mühendisliği (4. Sınıf)\n"
-rr2.font.size = Pt(12)
-rr2.font.bold = True
-rr2.font.color.rgb = TEXT_DARK
+p2 = tf_p.add_paragraph()
+p2.space_before = Pt(5)
+r2 = p2.add_run()
+r2.text = "Kocaeli Üniversitesi — Bilgisayar Mühendisliği (4. Sınıf)"
+r2.font.size = Pt(12)
+r2.font.bold = True
+r2.font.color.rgb = TEXT_DARK
 
-rr3 = pp1.add_run()
-rr3.text = "Selnikel Enerji A.Ş. IT Bölümü — Yazılım Stajyeri  •  Eylül 2026"
-rr3.font.size = Pt(11)
-rr3.font.color.rgb = TEXT_MUTED
+p3 = tf_p.add_paragraph()
+p3.space_before = Pt(4)
+r3 = p3.add_run()
+r3.text = "Selnikel Enerji A.Ş. IT Bölümü — Yazılım Stajyeri  •  Eylül 2026"
+r3.font.size = Pt(11)
+r3.font.color.rgb = TEXT_MUTED
 
 # 3 Project Pills
 pills1 = [
@@ -1529,31 +1533,39 @@ tf_cp.margin_left = tf_cp.margin_top = tf_cp.margin_right = tf_cp.margin_bottom 
 
 pp1 = tf_cp.paragraphs[0]
 rr1 = pp1.add_run()
-rr1.text = "Ömer Faruk Özdemir\n"
-rr1.font.size = Pt(16)
-rr1.font.bold = True
-rr1.font.color.rgb = TEXT_BLACK
+p1 = tf_cp.paragraphs[0]
+r1 = p1.add_run()
+r1.text = "Ömer Faruk Özdemir"
+r1.font.size = Pt(16)
+r1.font.bold = True
+r1.font.color.rgb = TEXT_BLACK
 
-rr2 = pp1.add_run()
-rr2.text = "Kocaeli Üniversitesi — Bilgisayar Mühendisliği (4. Sınıf)\n"
-rr2.font.size = Pt(12)
-rr2.font.bold = True
-rr2.font.color.rgb = TEXT_DARK
+p2 = tf_cp.add_paragraph()
+p2.space_before = Pt(5)
+r2 = p2.add_run()
+r2.text = "Kocaeli Üniversitesi — Bilgisayar Mühendisliği (4. Sınıf)"
+r2.font.size = Pt(12)
+r2.font.bold = True
+r2.font.color.rgb = TEXT_DARK
 
-rr3 = pp1.add_run()
-rr3.text = "Selnikel Enerji A.Ş. IT Bölümü — Yazılım Stajyeri  •  Eylül 2026\n\n"
-rr3.font.size = Pt(11)
-rr3.font.color.rgb = TEXT_MUTED
+p3 = tf_cp.add_paragraph()
+p3.space_before = Pt(4)
+r3 = p3.add_run()
+r3.text = "Selnikel Enerji A.Ş. IT Bölümü — Yazılım Stajyeri  •  Eylül 2026"
+r3.font.size = Pt(11)
+r3.font.color.rgb = TEXT_MUTED
 
-rr4 = pp1.add_run()
-rr4.text = "GitHub: "
-rr4.font.size = Pt(11)
-rr4.font.color.rgb = TEXT_MUTED
-rr4_b = pp1.add_run()
-rr4_b.text = "github.com/ozdemirCeng/selnikel-presentation"
-rr4_b.font.size = Pt(11)
-rr4_b.font.bold = True
-rr4_b.font.color.rgb = BLUE_BRAND
+p4 = tf_cp.add_paragraph()
+p4.space_before = Pt(8)
+r4 = p4.add_run()
+r4.text = "GitHub: "
+r4.font.size = Pt(10.5)
+r4.font.color.rgb = TEXT_MUTED
+r4_b = p4.add_run()
+r4_b.text = "github.com/ozdemirCeng/selnikel-presentation"
+r4_b.font.size = Pt(10.5)
+r4_b.font.bold = True
+r4_b.font.color.rgb = BLUE_BRAND
 
 # 3 Horizontal Summary Pills
 pills_close17 = [
