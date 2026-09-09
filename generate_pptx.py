@@ -226,36 +226,36 @@ for i, (ptxt, pbg, pcol, pbdr) in enumerate(pills1):
 
 # RIGHT SIDE: 2 AUTHENTIC SOFTWARE SCREENSHOTS (Web Hero + Selnikel One Map)
 # Card 1: Real Website (Next.js 16)
-card(s1, Inches(7.4), Inches(1.2), Inches(5.133), Inches(2.55), bg=WHITE, bdr=BORDER_CARD)
-tb_w_h = s1.shapes.add_textbox(Inches(7.55), Inches(1.28), Inches(4.8), Inches(0.25))
+card(s1, Inches(7.3), Inches(1.15), Inches(5.25), Inches(2.65), bg=WHITE, bdr=BORDER_CARD)
+tb_w_h = s1.shapes.add_textbox(Inches(7.5), Inches(1.25), Inches(4.8), Inches(0.28))
 tb_w_h.text_frame.margin_left = tb_w_h.text_frame.margin_right = 0
 pw = tb_w_h.text_frame.paragraphs[0]
 rw = pw.add_run()
 rw.text = "🌐 Yeni Kurumsal Web Platformu (Next.js 16)"
-rw.font.size = Pt(10)
+rw.font.size = Pt(10.5)
 rw.font.bold = True
 rw.font.color.rgb = BLUE_BRAND
 
-web_img = IMG_DIR / "web_hero_real.png"
-if web_img.exists():
-    # 1024x492 -> aspect 2.081. width 4.8 in -> height 2.30 in
-    s1.shapes.add_picture(str(web_img), Inches(7.55), Inches(1.55), width=Inches(4.8))
+web_framed = IMG_DIR / "framed" / "web_hero_framed.png"
+if web_framed.exists():
+    # 1024x492 -> aspect 2.081. Height 1.95 in -> width = 4.05 in. Center: 7.3 + (5.25 - 4.05)/2 = 7.90 in.
+    s1.shapes.add_picture(str(web_framed), Inches(7.90), Inches(1.62), width=Inches(4.05), height=Inches(1.95))
 
 # Card 2: Real Selnikel One Live Fleet Map
-card(s1, Inches(7.4), Inches(3.9), Inches(5.133), Inches(2.55), bg=WHITE, bdr=BORDER_CARD)
-tb_o_h = s1.shapes.add_textbox(Inches(7.55), Inches(3.98), Inches(4.8), Inches(0.25))
+card(s1, Inches(7.3), Inches(3.95), Inches(5.25), Inches(2.65), bg=WHITE, bdr=BORDER_CARD)
+tb_o_h = s1.shapes.add_textbox(Inches(7.5), Inches(4.05), Inches(4.8), Inches(0.28))
 tb_o_h.text_frame.margin_left = tb_o_h.text_frame.margin_right = 0
 po = tb_o_h.text_frame.paragraphs[0]
 ro = po.add_run()
 ro.text = "🚌 Selnikel One: Canlı Servis & Lojistik Haritası"
-ro.font.size = Pt(10)
+ro.font.size = Pt(10.5)
 ro.font.bold = True
 ro.font.color.rgb = GREEN_BRAND
 
-map_img = IMG_DIR / "one_live_fleet_map.png"
-if map_img.exists():
-    # 1024x499 -> aspect 2.052. width 4.8 in -> height 2.34 in
-    s1.shapes.add_picture(str(map_img), Inches(7.55), Inches(4.25), width=Inches(4.8))
+map_framed = IMG_DIR / "framed" / "one_live_fleet_map_framed.png"
+if map_framed.exists():
+    # 1024x499 -> aspect 2.052. Height 1.95 in -> width = 4.00 in. Center: 7.3 + (5.25 - 4.00)/2 = 7.925 in.
+    s1.shapes.add_picture(str(map_framed), Inches(7.925), Inches(4.42), width=Inches(4.00), height=Inches(1.95))
 
 add_footer(s1, 1)
 
@@ -287,7 +287,7 @@ projs2 = [
          ("🚌 Canlı Servis GPS", "Kendi servislerimizin haritada canlı takibi"),
          ("⏱️ IFS ERP Entegre PDKS", "Turnike kart hareketleri ve mesai cepte"),
          ("⚙️ Atölye İş Takibi", "Kazan, brülör birimlerine dijital görev"),
-         ("💰 ~₺2.8M / Yıl Tasarruf", "15 servis aracından 11 araca optimizasyon")
+         ("🗺️ Dinamik Rota Yönetimi", "İzinli personelin durağı otomatik elenir")
      ]),
 ]
 
@@ -468,9 +468,10 @@ rwh.font.size = Pt(12)
 rwh.font.bold = True
 rwh.font.color.rgb = BLUE_BRAND
 
-if web_img.exists():
-    # Aspect ratio 1024x492 = 2.081. Fit cleanly inside card without crossing footer
-    s3.shapes.add_picture(str(web_img), Inches(7.36), Inches(4.42), width=Inches(4.51), height=Inches(2.17))
+web_framed = IMG_DIR / "framed" / "web_hero_framed.png"
+if web_framed.exists():
+    # Aspect ratio 1024x492 = 2.081. Clean centered placement with margins
+    s3.shapes.add_picture(str(web_framed), Inches(7.516), Inches(4.45), width=Inches(4.20), height=Inches(2.02))
 
 add_footer(s3, 3)
 
@@ -597,10 +598,10 @@ add_header(s6, "PROJE 1: SIFIRDAN EKLENEN ÖZELLİKLER", "Dinamik Ürün Katalo�
            "Müşterinin doğru ürünü 15 saniyede bulmasını sağlayan yeni altyapı", kcol=BLUE_BRAND)
 
 prods6 = [
-    ("selnikel_kazan_real.jpg", "Endüstriyel Kazanlar", "Buhar, kızgın su & atık ısı"),
-    ("product_boiler_burner.png", "Endüstriyel Brülörler", "Monoblok & duoblok yüksek verim"),
-    ("product_fan.png", "Endüstriyel Fanlar", "Ağır sanayi radyal & aksiyal"),
-    ("selnikel_atik_isi_kazani.jpg", "Ekonomizer & Atık Isı", "Baca gazından enerji geri kazanımı"),
+    ("selnikel_kazan_framed.png", "Endüstriyel Kazanlar", "Buhar, kızgın su & atık ısı"),
+    ("product_burner_framed.png", "Endüstriyel Brülörler", "Monoblok & duoblok yüksek verim"),
+    ("product_fan_framed.png", "Endüstriyel Fanlar", "Ağır sanayi radyal & aksiyal"),
+    ("selnikel_atik_isi_framed.png", "Ekonomizer & Atık Isı", "Baca gazından enerji geri kazanımı"),
 ]
 
 for i, (pimg, pname, pdesc) in enumerate(prods6):
@@ -611,9 +612,9 @@ for i, (pimg, pname, pdesc) in enumerate(prods6):
 
     card(s6, cx, cy, cw, ch, bg=WHITE, bdr=BORDER_CARD)
 
-    img_p = IMG_DIR / pimg
+    img_p = IMG_DIR / "framed" / pimg
     if img_p.exists():
-        s6.shapes.add_picture(str(img_p), cx + Inches(0.12), cy + Inches(0.12), width=cw - Inches(0.24), height=Inches(1.8))
+        s6.shapes.add_picture(str(img_p), cx + Inches(0.15), cy + Inches(0.15), width=Inches(2.45), height=Inches(1.75))
 
     tb = s6.shapes.add_textbox(cx + Inches(0.12), cy + Inches(2.05), cw - Inches(0.24), Inches(1.2))
     tf = tb.text_frame
@@ -882,9 +883,10 @@ rlt.font.size = Pt(13)
 rlt.font.bold = True
 rlt.font.color.rgb = TEXT_BLACK
 
-live_ai_p = IMG_DIR / "selnikel_ai_desktop_live.png"
-if live_ai_p.exists():
-    s9.shapes.add_picture(str(live_ai_p), Inches(1.0), Inches(2.1), width=Inches(6.3), height=Inches(3.74))
+live_ai_framed = IMG_DIR / "framed" / "selnikel_ai_framed.png"
+if live_ai_framed.exists():
+    # 1600x950 -> aspect 1.684. Width 5.9 in -> height 3.50 in. Center: 0.8 + (6.7 - 5.9)/2 = 1.20 in.
+    s9.shapes.add_picture(str(live_ai_framed), Inches(1.20), Inches(2.12), width=Inches(5.90), height=Inches(3.50))
 
 tb_cap = s9.shapes.add_textbox(Inches(1.0), Inches(5.95), Inches(6.3), Inches(0.6))
 tf_cap = tb_cap.text_frame
@@ -1260,10 +1262,10 @@ rm5_sub.text = "Canlı Sistem Arayüzü: Kurum Psikoloğu & Diyetisyeni"
 rm5_sub.font.size = Pt(10)
 rm5_sub.font.color.rgb = TEXT_MUTED
 
-appt_img = IMG_DIR / "one_health_appointments.png"
-if appt_img.exists():
-    # 1024x493 -> aspect 2.077. Width 4.75 in -> Height 2.29 in
-    s13.shapes.add_picture(str(appt_img), Inches(7.6), Inches(2.4), width=Inches(4.75))
+appt_framed = IMG_DIR / "framed" / "one_health_framed.png"
+if appt_framed.exists():
+    # 1024x493 -> aspect 2.077. Width 4.40 in -> Height 2.12 in. Center: 7.4 + (5.133 - 4.40)/2 = 7.766 in.
+    s13.shapes.add_picture(str(appt_framed), Inches(7.766), Inches(2.45), width=Inches(4.40), height=Inches(2.12))
 
 tb_m5_desc = s13.shapes.add_textbox(Inches(7.6), Inches(4.85), Inches(4.7), Inches(1.7))
 tf_m5d = tb_m5_desc.text_frame
@@ -1296,10 +1298,10 @@ add_header(s14, "PROJE 3: KULLANICI ARAYÜZLERİ", "Selnikel One: Geliştirilen 
 
 # 4 Authentic Mobile Screens uploaded by user (100% real application UI)
 mobile_screens14 = [
-    ("one_login_portal.png", "1. Güvenli Giriş Portalı", "Rol Bazlı Güvenli Giriş"),
-    ("one_mobile_morning.png", "2. Sabah Servisi & Vardiya", "15 Servis • 148 Personel"),
-    ("one_mobile_leave.png", "3. İK İzin Talepleri", "14 Gün Bakiye • Hızlı Başvuru"),
-    ("one_mobile_health.png", "4. Fabrika Yaşamı & Sağlık", "Psikolog & Diyetisyen Randevusu"),
+    ("one_login_portal_framed.png", "1. Güvenli Giriş Portalı", "Rol Bazlı Güvenli Giriş"),
+    ("one_mobile_morning_framed.png", "2. Sabah Servisi & Vardiya", "15 Servis • 148 Personel"),
+    ("one_mobile_leave_framed.png", "3. İK İzin Talepleri", "14 Gün Bakiye • Hızlı Başvuru"),
+    ("one_mobile_health_framed.png", "4. Fabrika Yaşamı & Sağlık", "Psikolog & Diyetisyen Randevusu"),
 ]
 
 for i, (mimg, mname, mbadge) in enumerate(mobile_screens14):
@@ -1330,12 +1332,10 @@ for i, (mimg, mname, mbadge) in enumerate(mobile_screens14):
     rb.font.bold = True
     rb.font.color.rgb = GREEN_BRAND
 
-    img_path = IMG_DIR / mimg
+    img_path = IMG_DIR / "framed" / mimg
     if img_path.exists():
-        # High quality mobile image presentation
-        # Height 4.35 in -> Width = 4.35 * 0.5244 = 2.28 in.
-        # Center horizontally in card: cx + (2.75 - 2.28)/2 = cx + 0.235
-        s14.shapes.add_picture(str(img_path), cx + Inches(0.235), cy + Inches(0.68), width=Inches(2.28), height=Inches(4.35))
+        # Clean smartphone frame with smooth rounded corners and breathing room
+        s14.shapes.add_picture(str(img_path), cx + Inches(0.275), cy + Inches(0.70), width=Inches(2.20), height=Inches(4.20))
 
 add_footer(s14, 14)
 
@@ -1344,8 +1344,8 @@ add_footer(s14, 14)
 # ══════════════════════════════════════════════════════════════
 s15 = prs.slides.add_slide(prs.slide_layouts[6])
 set_bg(s15, BG_LIGHT)
-add_header(s15, "PROJE 3: ROTA KOKPİTİ & ROI", "Selnikel One: Canlı Filo Takip Konsolu & Net Tasarruf",
-           "15 Servis Aracı, Canlı Ankara Haritası ve Matematiksel VRPTW Tasarrufu", kcol=GREEN_BRAND)
+add_header(s15, "PROJE 3: CANLI FİLO & ROTA KONSOLU", "Selnikel One: Canlı Servis Takibi ve Operasyonel Verimlilik",
+           "15 Servis Aracı, Harita Üzerinde Canlı Konum ve Dinamik Rota Yönetimi", kcol=GREEN_BRAND)
 
 # Left: Real Live Selnikel One Fleet & Routes Map Cockpit (one_live_fleet_map.png)
 card(s15, Inches(0.8), Inches(1.55), Inches(6.6), Inches(5.15), bg=WHITE, bdr=BORDER_CARD)
@@ -1361,10 +1361,10 @@ rmapt.font.color.rgb = TEXT_BLACK
 
 live_map_img = IMG_DIR / "one_live_fleet_map.png"
 if live_map_img.exists():
-    # 1024x499 -> aspect 2.052. width 6.2 in -> height 3.02 in
-    s15.shapes.add_picture(str(live_map_img), Inches(1.0), Inches(2.15), width=Inches(6.2))
+    # 1024x499 -> aspect 2.052. width 5.9 in -> height 2.87 in. Center in 6.6 card: 0.8 + (6.6-5.9)/2 = 1.15 in.
+    s15.shapes.add_picture(str(live_map_img), Inches(1.15), Inches(2.15), width=Inches(5.90), height=Inches(2.87))
 
-tb_mapsub = s15.shapes.add_textbox(Inches(1.0), Inches(5.3), Inches(6.2), Inches(1.25))
+tb_mapsub = s15.shapes.add_textbox(Inches(1.05), Inches(5.15), Inches(6.1), Inches(1.35))
 tf_ms = tb_mapsub.text_frame
 tf_ms.word_wrap = True
 tf_ms.margin_left = tf_ms.margin_right = 0
@@ -1381,12 +1381,12 @@ rms2.text = "✓ Keçiören, Mamak, Etimesgut ve Sincan güzergahları üzerinde
 rms2.font.size = Pt(9.5)
 rms2.font.color.rgb = TEXT_DARK
 
-# Right: 4 Giant Financial Cards
+# Right: 4 Realistic Operational Value Cards (No exaggerated financial claims!)
 rois15 = [
-    ("🚌 -4 KİRALIK ARAÇ", "15 Hattan 11 Hatta Düşüş", "Tüm çalışanlar 11 araçla tam zamanında taşınmaktadır.", GREEN_BRAND),
-    ("📉 GÜNDE -510 KM", "%40.4 Yakıt & Mesafe Düşüşü", "Eski: 1.262 km/gün ➔ Yeni: 752 km/gün (Yılda 127.500 km daha az yol).", BLUE_BRAND),
-    ("💰 ₺233.000 / AY", "Yılda ~₺2.8 Milyon Nakit Getiri", "4 kiralık servis aracı ve yakıt tasarrufu şirkete doğrudan net nakit kalır.", RED_BRAND),
-    ("⏳ < 60 GÜN AMORTİ", "Geri Dönüş Süresi (Payback)", "Yazılım altyapı yatırımı sağlanan tasarrufla ilk 2 ayda kendini amorti eder.", AMBER_BRAND),
+    ("🛰️ CANLI TELEMETRİ", "%100 Filo Görünürlüğü", "15 servis aracının anlık konumu, hız bilgisi (38-45 km/s) ve tahmini varış süresi tek haritada izlenir.", GREEN_BRAND),
+    ("🗺️ DİNAMİK ROTA", "Boşa Kilometreye Son", "İzinli personelin durağına boşuna girilmez. Güzergahlar dinamik planlanarak gereksiz km ve yakıt harcaması önlenir.", BLUE_BRAND),
+    ("👥 YOLCU DOLULUK", "Anlık Kapasite Takibi", "Hangi serviste kaç yolcu olduğu canlı izlenir (örn. 16/19 yolcu); araçlar arası doluluk dengesi korunur.", RED_BRAND),
+    ("⚡ DİJİTAL DİSPEÇER", "Sıfır Telefon Trafiği", "Gecikme ve trafik bildirimleri tek merkezden anlık yönetilir; şoför ve amirler arasındaki telefon trafiği biter.", AMBER_BRAND),
 ]
 
 for idx, (rtitle, rsub, rdesc, rcol) in enumerate(rois15):
@@ -1437,7 +1437,7 @@ total_gains16 = [
     ("🛡️ Sıfır Siber Güvenlik Riski", "Proje 1 (Web)", "0 SQL injection açığı, 0 sunucu çökmesi, penetrasyon onaylı A+ kurumsal güvenlik.", RED_BRAND),
     ("🧠 70 Yıllık Kurumsal Hafıza", "Proje 2 (Selnikel AI)", "Usta ve mühendis tecrübesi şirket sunucularında kalıcı sermaye oldu. Sıfır bilgi kaybı.", AMBER_BRAND),
     ("⚡ Mühendislikte Sıfır Hata", "Proje 2 (Selnikel AI)", "ASME ve ISO standartlarında 5 MCP hesap motoru; şartname tarama süresi 4 saatten 5 dk'ya indi.", GREEN_BRAND),
-    ("💰 Yılda ~₺2.8M Nakit Tasarruf", "Proje 3 (Selnikel One)", "4 servis aracının iptali ve günde 510 km daha az yol ile net yakıt ve filo tasarrufu.", GREEN_BRAND),
+    ("🚍 Canlı Filo & Rota Verimliliği", "Proje 3 (Selnikel One)", "15 servis aracının anlık GPS telemetrisi, dinamik durak optimizasyonu ve sıfır telefon trafiği.", GREEN_BRAND),
     ("📱 Kağıtsız & Şeffaf Fabrika", "Proje 3 (Selnikel One)", "Servis belirsizliği bitti, nizamiye PDKS mesaisi cebe indi, atölye işleri şeffaflaştı.", PURPLE_BRAND),
 ]
 
@@ -1604,7 +1604,7 @@ summary_boxes = [
      AMBER_BRAND, AMBER_BG, AMBER_BDR),
     ("📱 Proje 3: Selnikel One Fabrika Platformu",
      "Mobil Uygulama + Servis Güzergah Optimizasyonu.",
-     "Canlı servis GPS • Mobil IFS PDKS mesai takibi • Atölye iş dağılımı • Yılda ~₺2.8M doğrudan filo tasarrufu.",
+     "Canlı servis GPS • Dinamik rota verimliliği • Mobil IFS PDKS mesai takibi • Atölye iş dağılımı.",
      GREEN_BRAND, GREEN_BG, GREEN_BDR),
 ]
 
