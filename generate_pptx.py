@@ -1294,48 +1294,48 @@ set_bg(s14, BG_LIGHT)
 add_header(s14, "PROJE 3: KULLANICI ARAYÜZLERİ", "Selnikel One: Geliştirilen Mobil Uygulama Ekranları",
            "Personel ve sürücüler için hazırlanan kullanıcı dostu canlı mobil arayüzler", kcol=GREEN_BRAND)
 
-# 5 Authentic Mobile Screens including user's brand-new uploaded screenshots!
+# 4 Authentic Mobile Screens uploaded by user (100% real application UI)
 mobile_screens14 = [
-    ("one_login_portal.png", "1. Güvenli Giriş", "Birlikte, Yolunda"),
-    ("one_mobile_morning.png", "2. Sabah Girişi", "15 Servis • 148 Personel"),
-    ("mobile_driver.png", "3. Şoför Sefer Modu", "Tek Tuşla Sefer"),
-    ("mobile_manifest.png", "4. Canlı Manifesto", "Durak Yolcu Listesi"),
-    ("mobile_telemetry.png", "5. GPS Telemetri", "Kesintisiz Offline Buffer"),
+    ("one_login_portal.png", "1. Güvenli Giriş Portalı", "Rol Bazlı Güvenli Giriş"),
+    ("one_mobile_morning.png", "2. Sabah Servisi & Vardiya", "15 Servis • 148 Personel"),
+    ("one_mobile_leave.png", "3. İK İzin Talepleri", "14 Gün Bakiye • Hızlı Başvuru"),
+    ("one_mobile_health.png", "4. Fabrika Yaşamı & Sağlık", "Psikolog & Diyetisyen Randevusu"),
 ]
 
-for i, (mimg, mname, mdesc) in enumerate(mobile_screens14):
-    cx = Inches(0.8 + i * 2.4)
+for i, (mimg, mname, mbadge) in enumerate(mobile_screens14):
+    cx = Inches(0.8 + i * 3.0)
     cy = Inches(1.55)
-    cw = Inches(2.18)
+    cw = Inches(2.75)
     ch = Inches(5.15)
 
     card(s14, cx, cy, cw, ch, bg=WHITE, bdr=BORDER_CARD)
 
-    tb_h = s14.shapes.add_textbox(cx + Inches(0.1), cy + Inches(0.1), cw - Inches(0.2), Inches(0.35))
-    tb_h.text_frame.margin_left = tb_h.text_frame.margin_right = 0
-    ph = tb_h.text_frame.paragraphs[0]
+    # Top Header Text
+    tb_h = s14.shapes.add_textbox(cx + Inches(0.12), cy + Inches(0.1), cw - Inches(0.24), Inches(0.52))
+    tf_h = tb_h.text_frame
+    tf_h.word_wrap = True
+    tf_h.margin_left = tf_h.margin_right = tf_h.margin_top = tf_h.margin_bottom = 0
+    ph = tf_h.paragraphs[0]
     rh = ph.add_run()
     rh.text = mname
-    rh.font.size = Pt(11)
+    rh.font.size = Pt(11.5)
     rh.font.bold = True
     rh.font.color.rgb = TEXT_BLACK
 
+    pb = tf_h.add_paragraph()
+    pb.space_before = Pt(2)
+    rb = pb.add_run()
+    rb.text = mbadge
+    rb.font.size = Pt(9.5)
+    rb.font.bold = True
+    rb.font.color.rgb = GREEN_BRAND
+
     img_path = IMG_DIR / mimg
     if img_path.exists():
-        # Proportional mobile height calculation
-        # If width is 1.96 in, height is approx 3.8 - 4.0 in
-        s14.shapes.add_picture(str(img_path), cx + Inches(0.11), cy + Inches(0.48), width=Inches(1.96))
-
-    tb_c = s14.shapes.add_textbox(cx + Inches(0.1), cy + Inches(4.55), cw - Inches(0.2), Inches(0.5))
-    tf_c = tb_c.text_frame
-    tf_c.word_wrap = True
-    tf_c.margin_left = tf_c.margin_right = 0
-    pc = tf_c.paragraphs[0]
-    rc = pc.add_run()
-    rc.text = mdesc
-    rc.font.size = Pt(9.5)
-    rc.font.bold = True
-    rc.font.color.rgb = TEXT_MUTED
+        # High quality mobile image presentation
+        # Height 4.35 in -> Width = 4.35 * 0.5244 = 2.28 in.
+        # Center horizontally in card: cx + (2.75 - 2.28)/2 = cx + 0.235
+        s14.shapes.add_picture(str(img_path), cx + Inches(0.235), cy + Inches(0.68), width=Inches(2.28), height=Inches(4.35))
 
 add_footer(s14, 14)
 
